@@ -31,7 +31,7 @@ const generalAmenities = [
 
 const villaSpecs = [
   {
-    name: 'Azure Villa',
+    name: 'Azzura Villa I',
     specs: [
       'Accommodates: 6 persons',
       'Bedrooms: 2',
@@ -44,7 +44,7 @@ const villaSpecs = [
     ],
   },
   {
-    name: 'Sapphire Villa',
+    name: 'Azzura Villa II',
     specs: [
       'Accommodates: 8 persons',
       'Bedrooms: 4',

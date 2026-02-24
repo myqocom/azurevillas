@@ -67,7 +67,7 @@ export default function Hero() {
       {/* Content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-4">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold mb-4 drop-shadow-lg">
-          Azure Villas
+          Azzura Villas
         </h1>
         <p className="text-lg md:text-xl lg:text-2xl font-light max-w-2xl drop-shadow-md">
           Luxury Sea View Villas in Lefkada, Greece

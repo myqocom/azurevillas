@@ -39,17 +39,17 @@ export default function Contact() {
             </div>
             <h3 className="text-lg font-medium mb-2">Email</h3>
             <a
-              href="mailto:info@azurevillas.gr"
+              href="mailto:info@azzuravillas.gr"
               className="text-azure-200 hover:text-white transition-colors"
             >
-              info@azurevillas.gr
+              info@azzuravillas.gr
             </a>
           </div>
         </div>
 
         <div className="mt-16 text-center">
           <p className="text-azure-300 text-sm">
-            We look forward to welcoming you to Azure Villas
+            We look forward to welcoming you to Azzura Villas
           </p>
         </div>
       </div>

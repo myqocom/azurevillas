@@ -1,6 +1,6 @@
-# Azure Villas
+# Azzura Villas
 
-A luxury villa rental website for Azure Villas in Lefkada, Greece. Built with Next.js, TypeScript, and TailwindCSS.
+A luxury villa rental website for Azzura Villas in Lefkada, Greece. Built with Next.js, TypeScript, and TailwindCSS.
 
 ## Features
 

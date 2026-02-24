@@ -3,7 +3,7 @@ export default function Welcome() {
     <section id="welcome" className="py-20 md:py-32 bg-sand-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-gray-800 mb-8">
-          Welcome to Azure Villas, Lefkada
+          Welcome to Azzura Villas, Lefkada
         </h2>
         
         <div className="space-y-6 text-gray-600 leading-relaxed">

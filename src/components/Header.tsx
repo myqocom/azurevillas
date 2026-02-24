@@ -39,7 +39,7 @@ export default function Header() {
                 isScrolled ? 'text-azure-700' : 'text-white'
               }`}
             >
-              Azure Villas
+              Azzura Villas
             </span>
           </Link>
 
