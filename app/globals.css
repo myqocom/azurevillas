@@ -713,20 +713,13 @@ img { display: block; }
   background-color: var(--cream);
 }
 
-#amenities {
-  padding-left: 20px;
-}
-
-#amenities .amen__grid {
-  margin-left: 0;
-}
 
 .amen__grid {
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 0;
   align-items: center;
 }
 
@@ -741,6 +734,7 @@ img { display: block; }
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 0 80px;
 }
 
 .amen__heading {
@@ -808,7 +802,7 @@ img { display: block; }
   letter-spacing: -0.01em;
   color: var(--dark);
   margin: 0;
-  max-width: 50%;
+  max-width: 340px;
 }
 
 .amen__entry-desc--dark {
