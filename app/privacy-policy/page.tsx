@@ -30,11 +30,13 @@ export default function PrivacyPolicyPage() {
   return (
     <>
       <Nav />
-      <main style={{ paddingTop: '100px', minHeight: '80vh', background: 'var(--bg)' }}>
+      <div style={heroBanner}>
+        <p className="section-label" style={{ color: 'var(--taupe)' }}>Legal</p>
+        <h1 style={heroTitle}>Privacy Policy</h1>
+      </div>
+      <main style={{ minHeight: '60vh', background: 'var(--bg)' }}>
         <div style={pageWrap}>
 
-          <p className="section-label">Legal</p>
-          <h1 style={h1Style}>Privacy Policy</h1>
           <p style={metaStyle}>Last updated: March 2026</p>
 
           <Section title="1. Who We Are">
@@ -121,18 +123,30 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   )
 }
 
+const heroBanner: React.CSSProperties = {
+  background: 'var(--dark)',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '50vh',
+  padding: '120px 32px 80px',
+  textAlign: 'center',
+}
+
+const heroTitle: React.CSSProperties = {
+  fontFamily: 'var(--font-serif), Georgia, serif',
+  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+  color: 'var(--cream)',
+  margin: '16px 0 0',
+  lineHeight: 1.05,
+  letterSpacing: '-0.03em',
+}
+
 const pageWrap: React.CSSProperties = {
   maxWidth: '720px',
   margin: '0 auto',
   padding: '60px 32px 80px',
-}
-
-const h1Style: React.CSSProperties = {
-  fontFamily: 'var(--font-serif), Georgia, serif',
-  fontSize: 'clamp(2rem, 5vw, 3rem)',
-  color: 'var(--dark)',
-  margin: '12px 0 4px',
-  lineHeight: 1.1,
 }
 
 const metaStyle: React.CSSProperties = {

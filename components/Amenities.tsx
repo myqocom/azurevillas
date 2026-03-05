@@ -11,12 +11,8 @@ const villaAmenities = [
     description: 'Premium appliances, cookware, and everything you need to prepare meals or entertain at home.',
   },
   {
-    title: 'Air-Conditioning & High-Speed WiFi',
-    description: 'Stay cool and connected throughout the villa, with fast WiFi in every room.',
-  },
-  {
-    title: 'Flat-Screen TV & Entertainment',
-    description: 'Relax indoors with a large flat-screen TV, streaming services, and a full entertainment setup.',
+    title: 'Flat-Screen TV, WiFi & Entertainment',
+    description: 'Relax indoors with a large flat-screen TV, streaming services, and fast WiFi throughout the villa.',
   },
   {
     title: 'Washer, Dryer & Free Parking',
@@ -25,10 +21,6 @@ const villaAmenities = [
 ]
 
 const surroundingAmenities = [
-  {
-    title: 'Sun Terrace & Outdoor Dining',
-    description: 'A shaded terrace with loungers, an outdoor dining area, and electric BBQ available on request.',
-  },
   {
     title: 'Vasiliki Beach, 1 km Away',
     description: 'Walk to the beach in 12 minutes. Vasiliki is one of the top windsurfing destinations in Europe.',

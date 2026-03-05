@@ -12,6 +12,32 @@ export function LocationSection() {
             famous Agiofili Beach is 5 km south, and Aktion National Airport is
             56 km by car.
           </p>
+
+          <div className="location__nearby">
+            <div className="location__nearby-group">
+              <p className="location__nearby-label">Beaches</p>
+              <ul className="location__nearby-list">
+                <li>Vasiliki Beach <span>1 km</span></li>
+                <li>Agiofili Beach <span>5 km</span></li>
+                <li>Kastri Beach <span>6 km</span></li>
+                <li>Egremni Beach <span>9 km</span></li>
+              </ul>
+            </div>
+            <div className="location__nearby-group">
+              <p className="location__nearby-label">Eat &amp; Drink</p>
+              <ul className="location__nearby-list">
+                <li>Garden Cafe-Cocktail Bar <span>2.7 km</span></li>
+                <li>The Old Plane Tree <span>4.7 km</span></li>
+                <li>Sesoula Taverna <span>10 km</span></li>
+              </ul>
+            </div>
+            <div className="location__nearby-group">
+              <p className="location__nearby-label">Airport</p>
+              <ul className="location__nearby-list">
+                <li>Aktion Airport (PVK) <span>56 km</span></li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="location__map reveal reveal-d1">

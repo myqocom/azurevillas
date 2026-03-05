@@ -33,8 +33,8 @@ const faqs = [
     answer: 'Each villa accommodates up to 8 guests across 3 bedrooms.',
   },
   {
-    question: 'Does Azzura Villas have a balcony or terrace?',
-    answer: 'Yes. Options at this property include both a balcony and a terrace. You can find out more about the facilities on this page.',
+    question: 'Are pets allowed at Azzura Villas?',
+    answer: 'Pets are not allowed at this property.',
   },
   {
     question: 'Is there an airport shuttle service?',
