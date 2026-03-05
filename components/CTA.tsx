@@ -10,6 +10,7 @@ export function CTA() {
         alt="Hot tub at night with starry sky and Vasiliki Bay views at Azzura Villas"
         fill
         sizes="100vw"
+        quality={90}
         className="cta-section__bg"
       />
       <div className="cta-section__overlay" />

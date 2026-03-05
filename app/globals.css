@@ -1082,7 +1082,7 @@ img { display: block; }
 .cta-section__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(23, 15, 11, 0.45);
+  background: rgba(23, 15, 11, 0.25);
 }
 
 .cta-section__content {
