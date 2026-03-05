@@ -121,7 +121,7 @@ img { display: block; }
 
 .nav__logo {
   font-family: var(--font-serif), Georgia, serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: var(--cream);
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -1189,7 +1189,13 @@ img { display: block; }
   aspect-ratio: 3/2;
   overflow: hidden;
   border-radius: 20px;
-  transform: scale(0.82);
+  /*
+   * --slide-shift compensates for the visual gap created by scale().
+   * Each non-active slide is shifted toward the active slide so the
+   * visual gap between any two adjacent slides equals --gallery-gap.
+   * Set per-slide via inline style in Gallery.tsx.
+   */
+  transform: translateX(var(--slide-shift, 0px)) scale(0.82);
   transform-origin: center 50%;
   opacity: 0.75;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1199,30 +1205,10 @@ img { display: block; }
 
 /* Active slide — full size */
 .gallery__slide--active {
-  transform: scale(1);
+  transform: translateX(var(--slide-shift, 0px)) scale(1);
   transform-origin: center 50%;
   opacity: 1;
   cursor: default;
-}
-
-/*
- * Directional transform-origin keeps the visual gap exactly equal to
- * --gallery-gap. Without this, scale() shrinks from the center, pushing
- * both edges inward and creating large empty space on the gap side.
- *
- * Left neighbour shrinks rightward (right edge stays flush with gap).
- * Right neighbour shrinks leftward (left edge stays flush with gap).
- */
-.gallery__slide--prev {
-  transform: scale(0.82);
-  transform-origin: 100% 50%;
-  opacity: 0.75;
-}
-
-.gallery__slide--next {
-  transform: scale(0.82);
-  transform-origin: 0% 50%;
-  opacity: 0.75;
 }
 
 .gallery__slide img {
@@ -1615,11 +1601,10 @@ img { display: block; }
     --gallery-gap: 10px;
     --gallery-offset: 20px;
   }
-  /* No scale effect on mobile — adjacent slices are same size, just cropped */
+  /* No scale effect on mobile — adjacent slides are same size, just cropped */
   .gallery__slide,
-  .gallery__slide--active,
-  .gallery__slide--prev,
-  .gallery__slide--next {
+  .gallery__slide--active {
+    --slide-shift: 0px !important;
     transform: scale(1);
     transform-origin: center 50%;
     opacity: 1;
