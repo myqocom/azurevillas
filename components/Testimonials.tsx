@@ -19,6 +19,42 @@ const reviews = [
     country: 'Greece',
     source: 'google',
   },
+  {
+    text: 'Woke up to the sea every morning. The infinity pool is even more beautiful in person. Hot tub at sunset is something else entirely.',
+    name: 'Julia B.',
+    country: 'Austria',
+    source: 'website',
+  },
+  {
+    text: 'Booked for a family trip and it exceeded every expectation. Spacious, spotless, and the views from the terrace are genuinely unforgettable.',
+    name: 'Konstantinos P.',
+    country: 'Greece',
+    source: 'website',
+  },
+  {
+    text: 'Best villa we have stayed in across the Greek islands. Kitchen fully stocked, beds incredibly comfortable, and the host thought of everything.',
+    name: 'Emma R.',
+    country: 'United Kingdom',
+    source: 'website',
+  },
+  {
+    text: 'Quiet, private, and beautifully designed. The pool is right on the edge of the hill. We did not want to leave.',
+    name: 'Marco D.',
+    country: 'Italy',
+    source: 'website',
+  },
+  {
+    text: 'We come to Lefkada every summer. This was different. Brand new, spotless, and that view is something you just stare at for hours.',
+    name: 'Sarah M.',
+    country: 'Germany',
+    source: 'website',
+  },
+  {
+    text: 'Incredible location. The villa is modern and very well equipped. The owner was responsive and made everything easy from the first message.',
+    name: 'Thomas K.',
+    country: 'Netherlands',
+    source: 'website',
+  },
 ]
 
 function Stars({ count = 5, color = 'var(--orange)' }: { count?: number; color?: string }) {
@@ -54,7 +90,7 @@ function Card({ review }: { review: typeof reviews[0] }) {
           </p>
           <div className="testimonial-card__rating">
             <Stars color="var(--bg)" />
-            <span>on {review.source === 'booking' ? 'Booking.com' : 'Google'}</span>
+            <span>on {review.source === 'booking' ? 'Booking.com' : review.source === 'google' ? 'google.com' : 'azzuravillas.gr'}</span>
           </div>
         </div>
       </div>
@@ -87,7 +123,7 @@ export function Testimonials() {
         <div className="testimonials__fade testimonials__fade--right" />
 
         <div className="testimonials__row testimonials__row--left">
-          {[...reviews, ...reviews, ...reviews, ...reviews].map((r, i) => (
+          {[...reviews, ...reviews].map((r, i) => (
             <Card key={`a-${i}`} review={r} />
           ))}
         </div>
