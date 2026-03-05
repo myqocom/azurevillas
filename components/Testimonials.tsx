@@ -123,9 +123,10 @@ export function Testimonials() {
         <div className="testimonials__fade testimonials__fade--right" />
 
         <div className="testimonials__row testimonials__row--left">
-          {[...reviews, ...reviews].map((r, i) => (
-            <Card key={`a-${i}`} review={r} />
-          ))}
+          {(() => { const row = reviews.filter((_, i) => i % 2 === 0); return [...row, ...row].map((r, i) => <Card key={`a-${i}`} review={r} />); })()}
+        </div>
+        <div className="testimonials__row testimonials__row--right">
+          {(() => { const row = reviews.filter((_, i) => i % 2 === 1); return [...row, ...row].map((r, i) => <Card key={`b-${i}`} review={r} />); })()}
         </div>
       </div>
     </section>

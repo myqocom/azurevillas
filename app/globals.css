@@ -958,6 +958,9 @@ img { display: block; }
 
 .testimonials__tracks {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .testimonials__fade {
@@ -986,6 +989,10 @@ img { display: block; }
 
 .testimonials__row--left {
   animation: scrollLeft 38s linear infinite;
+}
+
+.testimonials__row--right {
+  animation: scrollRight 38s linear infinite;
 }
 
 .testimonial-card {
@@ -1543,6 +1550,11 @@ img { display: block; }
 @keyframes scrollLeft {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
 }
 
 /* ─── Responsive ─────────────────────────────────────────────── */
