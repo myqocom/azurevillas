@@ -90,25 +90,6 @@ export default function ContactPage() {
             </button>
           </form>
 
-          <div style={{ marginTop: '64px', paddingTop: '40px', borderTop: '1px solid #e0d8d0', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
-            <div>
-              <p style={detailLabelStyle}>Address</p>
-              <p style={detailTextStyle}>Vasilikis – Porto Katsiki<br />Vasiliki, 310 82<br />Lefkada, Greece</p>
-            </div>
-            <div>
-              <p style={detailLabelStyle}>Check-in / Check-out</p>
-              <p style={detailTextStyle}>Check-in: 16:00 – 00:00<br />Check-out: by 11:00</p>
-            </div>
-            <div>
-              <p style={detailLabelStyle}>Nearby</p>
-              <p style={detailTextStyle}>Vasiliki Beach, 1 km<br />Vasiliki Port, 4.2 km<br />Aktion Airport, 56 km</p>
-            </div>
-            <div>
-              <p style={detailLabelStyle}>Rating</p>
-              <p style={detailTextStyle}>9.0 Superb on Booking.com<br />Staff · Facilities · Cleanliness: 10/10</p>
-            </div>
-          </div>
-
         </div>
       </main>
       <Footer />
@@ -138,18 +119,3 @@ const inputStyle: React.CSSProperties = {
   boxSizing: 'border-box',
 }
 
-const detailLabelStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.72rem',
-  letterSpacing: '0.1em',
-  textTransform: 'uppercase',
-  color: 'var(--muted)',
-  marginBottom: '6px',
-}
-
-const detailTextStyle: React.CSSProperties = {
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.9rem',
-  color: 'var(--dark)',
-  lineHeight: 1.7,
-}
