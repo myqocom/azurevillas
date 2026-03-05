@@ -1460,21 +1460,22 @@ img { display: block; }
   .welcome-intro { padding: 80px 24px 60px; }
 
   .setting { grid-template-columns: 1fr; }
-  .setting__image { border-radius: 0; aspect-ratio: 16/10; }
+  .setting__image { border-radius: 0; aspect-ratio: 4/3; }
   .setting__text { padding: 48px 24px; }
 
   .experience { padding: 80px 24px; }
   .experience__inner { grid-template-columns: 1fr; gap: 48px; }
-  .experience__image { order: -1; }
+  .experience__image { order: -1; aspect-ratio: 4/3; }
   .experience__text { padding: 0; }
 
   .rooms { padding: 80px 24px; }
   .rooms__header { grid-template-columns: 1fr; gap: 24px; }
+  .rooms__image-wrap { aspect-ratio: 4/3; }
   .rooms__grid { grid-template-columns: 1fr; }
 
   .amen { padding: 80px 24px; }
   .amen__grid { grid-template-columns: 1fr; gap: 40px; }
-  .amen__photo { aspect-ratio: 3/2; order: -1; }
+  .amen__photo { aspect-ratio: 4/3; order: -1; }
   .amen__photo--right { order: -1; }
   .amen__content { padding: 0; }
 
@@ -1505,6 +1506,7 @@ img { display: block; }
     transform-origin: center 50%;
     opacity: 1;
   }
+  .gallery__slide { aspect-ratio: 4/3; }
   .gallery__header { padding: 0 24px; }
   .gallery__desc { margin-top: 16px; }
 
