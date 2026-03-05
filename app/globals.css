@@ -1464,6 +1464,7 @@ img { display: block; }
   .experience { padding: 80px 24px; }
   .experience__inner { grid-template-columns: 1fr; gap: 48px; }
   .experience__image { order: -1; }
+  .experience__text { padding: 0; }
 
   .rooms { padding: 80px 24px; }
   .rooms__header { grid-template-columns: 1fr; gap: 24px; }
