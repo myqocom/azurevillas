@@ -121,7 +121,7 @@ img { display: block; }
 
 .nav__logo {
   font-family: var(--font-serif), Georgia, serif;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   color: var(--cream);
   letter-spacing: 0.04em;
   text-decoration: none;
@@ -1191,11 +1191,11 @@ img { display: block; }
   border-radius: 20px;
   /*
    * --slide-shift compensates for the visual gap created by scale().
-   * Each non-active slide is shifted toward the active slide so the
-   * visual gap between any two adjacent slides equals --gallery-gap.
-   * Set per-slide via inline style in Gallery.tsx.
+   * Uses the CSS `translate` property (not `transform`) so it does NOT
+   * animate — only scale and opacity transition when slides change.
    */
-  transform: translateX(var(--slide-shift, 0px)) scale(0.82);
+  translate: var(--slide-shift, 0px) 0;
+  transform: scale(0.82);
   transform-origin: center 50%;
   opacity: 0.75;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1205,7 +1205,8 @@ img { display: block; }
 
 /* Active slide — full size */
 .gallery__slide--active {
-  transform: translateX(var(--slide-shift, 0px)) scale(1);
+  translate: var(--slide-shift, 0px) 0;
+  transform: scale(1);
   transform-origin: center 50%;
   opacity: 1;
   cursor: default;
