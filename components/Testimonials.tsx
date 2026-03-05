@@ -13,6 +13,12 @@ const reviews = [
     country: 'United Kingdom',
     source: 'booking',
   },
+  {
+    text: 'Makis is a very good boy. Everything is perfect.',
+    name: 'Olympia P.',
+    country: 'Greece',
+    source: 'google',
+  },
 ]
 
 function Stars({ count = 5, color = 'var(--orange)' }: { count?: number; color?: string }) {
@@ -81,7 +87,7 @@ export function Testimonials() {
         <div className="testimonials__fade testimonials__fade--right" />
 
         <div className="testimonials__row testimonials__row--left">
-          {[...reviews, ...reviews].map((r, i) => (
+          {[...reviews, ...reviews, ...reviews, ...reviews].map((r, i) => (
             <Card key={`a-${i}`} review={r} />
           ))}
         </div>
