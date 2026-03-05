@@ -36,6 +36,10 @@ const faqs = [
     question: 'Does Azzura Villas have a balcony or terrace?',
     answer: 'Yes. Options at this property include both a balcony and a terrace. You can find out more about the facilities on this page.',
   },
+  {
+    question: 'Is there an airport shuttle service?',
+    answer: 'Yes. Azzura Villas has an airport shuttle service for an additional fee. You can request it directly after you have booked your stay.',
+  },
 ]
 
 export function FAQ() {
