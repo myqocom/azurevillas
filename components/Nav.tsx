@@ -105,14 +105,14 @@ export function Nav() {
               {/* Actions pinned to bottom */}
               <div className="nav__panel-bottom">
                 <Link
-                  href="/book"
+                  href="/contact"
                   onClick={() => setMenuOpen(false)}
                   className="nav__panel-book"
                 >
                   Book Now
                 </Link>
                 <a
-                  href="https://wa.me/30"
+                  href="https://wa.me/306985870395?text=Hi%2C%20I%20am%20interested%20in%20Azzura%20Villas%20and%20would%20like%20to%20enquire%20about%20availability."
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMenuOpen(false)}
@@ -124,7 +124,7 @@ export function Nav() {
                   </svg>
                 </a>
                 <a
-                  href="tel:+30"
+                  href="tel:+306985870395"
                   onClick={() => setMenuOpen(false)}
                   className="nav__panel-icon-btn"
                   aria-label="Call us"

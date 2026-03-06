@@ -5,6 +5,7 @@ const exploreLinks = [
   { name: 'Above the Blue', href: '#about' },
   { name: 'A Day Here', href: '#experience' },
   { name: 'The Villas', href: '#rooms' },
+  { name: 'Gallery', href: '#gallery' },
   { name: 'Every Detail', href: '#amenities' },
   { name: 'Their Words', href: '#testimonials' },
   { name: 'Questions', href: '#faq' },
@@ -12,8 +13,8 @@ const exploreLinks = [
 
 const contactLinks = [
   { name: 'Send us a Message', href: '/contact' },
-  { name: 'Instagram', href: '#' },
-  { name: 'WhatsApp', href: '#' },
+  { name: 'Give us a Call', href: 'tel:+306985870395' },
+  { name: 'Message us on WhatsApp', href: 'https://wa.me/306985870395?text=Hi%2C%20I%20am%20interested%20in%20Azzura%20Villas%20and%20would%20like%20to%20enquire%20about%20availability.' },
 ]
 
 export function Footer() {
@@ -43,6 +44,12 @@ export function Footer() {
               <a key={l.name} href={l.href}>{l.name}</a>
             ))}
           </nav>
+          <p className="footer__col-label" style={{ marginTop: '28px' }}>Information</p>
+          <nav className="footer__links">
+            <Link href="/blog">Blog</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/terms-conditions">Terms &amp; Conditions</Link>
+          </nav>
         </div>
 
         <div className="footer__col">
@@ -60,10 +67,6 @@ export function Footer() {
           >
             Get Directions &rarr;
           </a>
-          <nav className="footer__legal-links">
-            <Link href="/privacy-policy">Privacy Policy</Link>
-            <Link href="/terms-conditions">Terms &amp; Conditions</Link>
-          </nav>
         </div>
       </div>
 
