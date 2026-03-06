@@ -34,7 +34,7 @@ export default function PrivacyPolicyPage() {
         <p className="section-label" style={{ color: 'var(--taupe)' }}>Legal</p>
         <h1 style={heroTitle}>Privacy Policy</h1>
       </div>
-      <main style={{ minHeight: '60vh', background: 'var(--bg)' }}>
+      <main style={{ minHeight: '60vh', background: 'var(--cream)' }}>
         <div style={pageWrap}>
 
           <p style={metaStyle}>Last updated: March 2026</p>
@@ -124,7 +124,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 const heroBanner: React.CSSProperties = {
-  background: 'var(--dark)',
+  background: '#000',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
