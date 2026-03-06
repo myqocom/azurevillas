@@ -113,7 +113,7 @@ function MarqueeRow({ row, direction }: { row: typeof reviews; direction: 'left'
   return (
     <div className="testimonials__row">
       <div className={cls} style={{ '--scroll-duration': `${duration}s` } as React.CSSProperties}>
-        {[...row, ...row].map((r, i) => <Card key={`${direction}-${i}`} review={r} />)}
+        {[...row, ...row, ...row].map((r, i) => <Card key={`${direction}-${i}`} review={r} />)}
       </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { ContactContent } from '@/components/ContactContent'
 
 export const metadata: Metadata = {
   title: 'Contact Azzura Villas | Enquire About Availability in Lefkada',
@@ -29,67 +30,13 @@ export default function ContactPage() {
   return (
     <>
       <Nav />
-      <main style={{ paddingTop: '100px', minHeight: '80vh', background: 'var(--bg)' }}>
-        <div style={{ maxWidth: '720px', margin: '0 auto', padding: '60px 32px' }}>
-
-          <p className="section-label">Vasiliki, Lefkada, Greece</p>
-          <h1 style={{ fontFamily: 'var(--font-serif), Georgia, serif', fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--dark)', margin: '12px 0 8px', lineHeight: 1.1 }}>
-            Get in <em>Touch</em>
-          </h1>
-          <p style={{ color: 'var(--muted)', fontFamily: 'var(--font-sans)', fontSize: '1rem', marginBottom: '48px', maxWidth: '480px' }}>
-            Enquire about availability, rates, or anything else. We'll get back to you within 24 hours.
-          </p>
-
-          {/* TODO: Replace with a server action (see myqo-contact-form skill).
-              Never expose a real email address in form action — use a server action instead. */}
-          <form
-            style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-            action="/api/contact"
-            method="POST"
-          >
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div>
-                <label style={labelStyle}>Full Name</label>
-                <input name="name" type="text" required placeholder="Your name" style={inputStyle} />
-              </div>
-              <div>
-                <label style={labelStyle}>Email</label>
-                <input name="email" type="email" required placeholder="you@email.com" style={inputStyle} />
-              </div>
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div>
-                <label style={labelStyle}>Check-in</label>
-                <input name="checkin" type="date" style={inputStyle} />
-              </div>
-              <div>
-                <label style={labelStyle}>Check-out</label>
-                <input name="checkout" type="date" style={inputStyle} />
-              </div>
-            </div>
-
-            <div>
-              <label style={labelStyle}>Number of Guests</label>
-              <select name="guests" style={inputStyle}>
-                <option value="">Select guests</option>
-                {[1,2,3,4,5,6,7,8].map(n => (
-                  <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label style={labelStyle}>Message</label>
-              <textarea name="message" rows={5} placeholder="Any questions or special requests..." style={{ ...inputStyle, resize: 'vertical' }} />
-            </div>
-
-            <button type="submit" className="hero__cta" style={{ alignSelf: 'flex-start', color: 'var(--dark)', borderColor: 'var(--dark)' }}>
-              Send Enquiry
-            </button>
-          </form>
-
+      <div style={heroBanner}>
+        <p className="section-label" style={{ color: 'var(--taupe)' }}>Vasiliki, Lefkada, Greece</p>
+        <h1 style={heroTitle}>Get in <em>Touch</em></h1>
+      </div>
+      <main style={{ minHeight: '60vh', background: 'var(--cream)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '60px 32px 80px' }}>
+          <ContactContent />
         </div>
       </main>
       <Footer />
@@ -97,25 +44,22 @@ export default function ContactPage() {
   )
 }
 
-const labelStyle: React.CSSProperties = {
-  display: 'block',
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.75rem',
-  letterSpacing: '0.08em',
-  textTransform: 'uppercase',
-  color: 'var(--muted)',
-  marginBottom: '6px',
+const heroBanner: React.CSSProperties = {
+  background: '#000',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '50vh',
+  padding: '120px 32px 80px',
+  textAlign: 'center',
 }
 
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '12px 16px',
-  border: '1px solid #d5cdc5',
-  background: '#fff',
-  fontFamily: 'var(--font-sans)',
-  fontSize: '0.95rem',
-  color: 'var(--dark)',
-  outline: 'none',
-  boxSizing: 'border-box',
+const heroTitle: React.CSSProperties = {
+  fontFamily: 'var(--font-serif), Georgia, serif',
+  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
+  color: 'var(--cream)',
+  margin: '16px 0 0',
+  lineHeight: 1.05,
+  letterSpacing: '-0.03em',
 }
-

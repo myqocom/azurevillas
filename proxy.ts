@@ -8,7 +8,7 @@ export function proxy(request: NextRequest) {
     "default-src 'self'",
     "script-src 'self' https://www.googletagmanager.com 'unsafe-inline'",
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob: https://framerusercontent.com https://maps.gstatic.com https://maps.googleapis.com",
+    "img-src 'self' data: blob: https://framerusercontent.com https://cdn.sanity.io https://maps.gstatic.com https://maps.googleapis.com https://*.basemaps.cartocdn.com",
     "font-src 'self' https://fonts.gstatic.com",
     "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://*.myqo.com",
     "frame-src 'self' https://www.google.com https://maps.google.com https://maps.googleapis.com",
