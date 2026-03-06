@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { PortableText } from '@portabletext/react'
+import { PortableText, type PortableTextReactComponents } from '@portabletext/react'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 import { ScrollReveal } from '@/components/ScrollReveal'
@@ -66,9 +66,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-const portableTextComponents = {
+const portableTextComponents: Partial<PortableTextReactComponents> = {
   marks: {
-    link: ({ value, children }: { value: any; children: React.ReactNode }) => {
+    link: ({ value, children }: { value?: any; children?: React.ReactNode }) => {
       const href = value?.href || ''
       if (href.startsWith('/')) {
         return <Link href={href}>{children}</Link>
