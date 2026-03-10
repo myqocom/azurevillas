@@ -1,8 +1,7 @@
 'use client'
 
-import { useActionState, useState } from 'react'
+import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import { submitContactForm, type ContactFormState } from '@/lib/actions'
 
 const DateRangePicker = dynamic(() => import('./DateRangePicker'), { ssr: false })
 
@@ -13,11 +12,50 @@ const LeafletMap = dynamic(() => import('./LeafletMap'), {
   ),
 })
 
-const initialState: ContactFormState = { success: false, error: '' }
-
 export function ContactContent() {
   const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>()
-  const [state, formAction, isPending] = useActionState(submitContactForm, initialState)
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState('')
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setStatus('sending')
+    setErrorMsg('')
+
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    const payload = {
+      name: data.get('name') as string,
+      email: data.get('email') as string,
+      checkin: data.get('checkin') as string,
+      checkout: data.get('checkout') as string,
+      guests: data.get('guests') as string,
+      message: data.get('message') as string,
+      website: data.get('website') as string,
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+
+      const result = await res.json()
+
+      if (!res.ok) {
+        setStatus('error')
+        setErrorMsg(result.error || 'Something went wrong. Please try again.')
+        return
+      }
+
+      setStatus('success')
+    } catch {
+      setStatus('error')
+      setErrorMsg('Something went wrong. Please try again.')
+    }
+  }
 
   return (
     <div className="contact-grid" style={gridLayout}>
@@ -28,7 +66,7 @@ export function ContactContent() {
           Enquire about availability, rates, or anything else. We will get back to you within 24 hours.
         </p>
 
-        {state.success ? (
+        {status === 'success' ? (
           <div style={successStyle}>
             <p style={{ fontSize: '1.1rem', fontWeight: 600, margin: '0 0 8px' }}>Thank you for your enquiry.</p>
             <p style={{ margin: 0, opacity: 0.85 }}>We will get back to you within 24 hours.</p>
@@ -36,7 +74,7 @@ export function ContactContent() {
         ) : (
           <form
             style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-            action={formAction}
+            onSubmit={handleSubmit}
           >
             {/* Honeypot - hidden from real users */}
             <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
@@ -74,23 +112,23 @@ export function ContactContent() {
               <textarea id="message" name="message" rows={5} placeholder="Any questions or special requests..." style={{ ...inputStyle, height: 'auto', padding: '14px 16px', resize: 'vertical' }} />
             </div>
 
-            {state.error && (
-              <p style={errorStyle}>{state.error}</p>
+            {errorMsg && (
+              <p style={errorStyle}>{errorMsg}</p>
             )}
 
             <button
               type="submit"
-              disabled={isPending}
+              disabled={status === 'sending'}
               className="hero__cta"
               style={{
                 color: 'var(--dark)',
                 borderColor: 'var(--dark)',
                 borderRadius: '100px',
-                opacity: isPending ? 0.6 : 1,
-                cursor: isPending ? 'not-allowed' : 'pointer',
+                opacity: status === 'sending' ? 0.6 : 1,
+                cursor: status === 'sending' ? 'not-allowed' : 'pointer',
               }}
             >
-              {isPending ? 'Sending...' : 'Send Enquiry'}
+              {status === 'sending' ? 'Sending...' : 'Send Enquiry'}
             </button>
           </form>
         )}

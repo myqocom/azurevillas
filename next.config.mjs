@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['animejs'],
+  serverExternalPackages: ['resend'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'framerusercontent.com' },

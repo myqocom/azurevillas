@@ -1,7 +1,5 @@
-"use server"
-
+import { NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
-import { headers } from "next/headers"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -47,57 +45,60 @@ async function sendSlack(text: string) {
   }
 }
 
-export type ContactFormState = {
-  success: boolean
-  error: string
-}
-
-export async function submitContactForm(
-  _prev: ContactFormState,
-  formData: FormData
-): Promise<ContactFormState> {
-  // Get IP for rate limiting
-  const headersList = await headers()
+export async function POST(request: NextRequest) {
   const ip =
-    headersList.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    headersList.get("x-real-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
     "unknown"
 
   if (isRateLimited(ip)) {
-    return { success: false, error: "Too many requests. Please try again later." }
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 }
+    )
+  }
+
+  let body: Record<string, string>
+  try {
+    body = await request.json()
+  } catch {
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 })
   }
 
   // Honeypot check
-  const honeypot = formData.get("website") as string
-  if (honeypot) {
-    // Spam detected, send to Slack only
+  if (body.website) {
     await sendSlack(
-      `🚫 *Spam blocked* on ${SITE_NAME}\nIP: ${ip}\nHoneypot field filled: "${honeypot}"`
+      `🚫 *Spam blocked* on ${SITE_NAME}\nIP: ${ip}\nHoneypot field filled: "${body.website}"`
     )
     // Return success to not reveal detection
-    return { success: true, error: "" }
+    return NextResponse.json({ success: true })
   }
 
-  // Extract and validate fields
-  const name = sanitize((formData.get("name") as string) || "")
-  const email = sanitize((formData.get("email") as string) || "")
-  const checkin = sanitize((formData.get("checkin") as string) || "")
-  const checkout = sanitize((formData.get("checkout") as string) || "")
-  const guests = sanitize((formData.get("guests") as string) || "")
-  const message = sanitize((formData.get("message") as string) || "")
+  const name = sanitize(body.name || "")
+  const email = sanitize(body.email || "")
+  const checkin = sanitize(body.checkin || "")
+  const checkout = sanitize(body.checkout || "")
+  const guests = sanitize(body.guests || "")
+  const message = sanitize(body.message || "")
 
   if (!name || !email) {
-    return { success: false, error: "Name and email are required." }
+    return NextResponse.json(
+      { error: "Name and email are required." },
+      { status: 400 }
+    )
   }
 
   if (!isValidEmail(email)) {
-    return { success: false, error: "Please enter a valid email address." }
+    return NextResponse.json(
+      { error: "Please enter a valid email address." },
+      { status: 400 }
+    )
   }
 
   const now = new Date()
   const timestamp = now.toISOString().slice(0, 16).replace("T", " ")
 
-  const body = [
+  const emailBody = [
     `Hello ${SITE_NAME} team,`,
     "",
     "A new inquiry has been submitted via your website. Don't forget to reply:",
@@ -122,7 +123,7 @@ export async function submitContactForm(
       from: "MYQO <mailer@myqo.com>",
       to: RECIPIENT_EMAIL,
       subject: `${SITE_NAME} | New Booking Enquiry from ${name}`,
-      text: body,
+      text: emailBody,
       headers: { "Reply-To": email },
     })
 
@@ -140,11 +141,11 @@ export async function submitContactForm(
       .join("\n")
     await sendSlack(slackMsg)
 
-    return { success: true, error: "" }
+    return NextResponse.json({ success: true })
   } catch {
-    return {
-      success: false,
-      error: "Something went wrong. Please try again or contact us directly.",
-    }
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again or contact us directly." },
+      { status: 500 }
+    )
   }
 }
