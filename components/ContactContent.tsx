@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useActionState, useState } from 'react'
 import dynamic from 'next/dynamic'
+import { submitContactForm, type ContactFormState } from '@/lib/actions'
 
 const DateRangePicker = dynamic(() => import('./DateRangePicker'), { ssr: false })
 
@@ -12,8 +13,11 @@ const LeafletMap = dynamic(() => import('./LeafletMap'), {
   ),
 })
 
+const initialState: ContactFormState = { success: false, error: '' }
+
 export function ContactContent() {
   const [dateRange, setDateRange] = useState<{ from?: Date; to?: Date }>()
+  const [state, formAction, isPending] = useActionState(submitContactForm, initialState)
 
   return (
     <div className="contact-grid" style={gridLayout}>
@@ -24,45 +28,72 @@ export function ContactContent() {
           Enquire about availability, rates, or anything else. We will get back to you within 24 hours.
         </p>
 
-        <form
-          style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-          action="/api/contact"
-          method="POST"
-        >
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-            <div>
-              <label style={labelStyle}>Full Name</label>
-              <input name="name" type="text" required placeholder="Your name" style={inputStyle} />
+        {state.success ? (
+          <div style={successStyle}>
+            <p style={{ fontSize: '1.1rem', fontWeight: 600, margin: '0 0 8px' }}>Thank you for your enquiry.</p>
+            <p style={{ margin: 0, opacity: 0.85 }}>We will get back to you within 24 hours.</p>
+          </div>
+        ) : (
+          <form
+            style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+            action={formAction}
+          >
+            {/* Honeypot - hidden from real users */}
+            <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+              <label htmlFor="website">Website</label>
+              <input type="text" id="website" name="website" tabIndex={-1} autoComplete="off" />
             </div>
-            <div>
-              <label style={labelStyle}>Email</label>
-              <input name="email" type="email" required placeholder="you@email.com" style={inputStyle} />
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div>
+                <label htmlFor="name" style={labelStyle}>Full Name</label>
+                <input id="name" name="name" type="text" required placeholder="Your name" style={inputStyle} />
+              </div>
+              <div>
+                <label htmlFor="email" style={labelStyle}>Email</label>
+                <input id="email" name="email" type="email" required placeholder="you@email.com" style={inputStyle} />
+              </div>
             </div>
-          </div>
 
-          <DateRangePicker value={dateRange} onChange={setDateRange} />
-          <input type="hidden" name="checkin" value={dateRange?.from ? dateRange.from.toISOString().split('T')[0] : ''} />
-          <input type="hidden" name="checkout" value={dateRange?.to ? dateRange.to.toISOString().split('T')[0] : ''} />
+            <DateRangePicker value={dateRange} onChange={setDateRange} />
+            <input type="hidden" name="checkin" value={dateRange?.from ? dateRange.from.toISOString().split('T')[0] : ''} />
+            <input type="hidden" name="checkout" value={dateRange?.to ? dateRange.to.toISOString().split('T')[0] : ''} />
 
-          <div>
-            <label style={labelStyle}>Number of Guests</label>
-            <select name="guests" style={{ ...inputStyle, height: '48px', appearance: 'none', backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'12\' height=\'8\' viewBox=\'0 0 12 8\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1.5L6 6.5L11 1.5\' stroke=\'%23170f0b\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center' }}>
-              <option value="">Select guests</option>
-              {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
-                <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
-              ))}
-            </select>
-          </div>
+            <div>
+              <label htmlFor="guests" style={labelStyle}>Number of Guests</label>
+              <select id="guests" name="guests" style={{ ...inputStyle, height: '48px', appearance: 'none', backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'12\' height=\'8\' viewBox=\'0 0 12 8\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M1 1.5L6 6.5L11 1.5\' stroke=\'%23170f0b\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E")', backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center' }}>
+                <option value="">Select guests</option>
+                {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
+                  <option key={n} value={n}>{n} {n === 1 ? 'guest' : 'guests'}</option>
+                ))}
+              </select>
+            </div>
 
-          <div>
-            <label style={labelStyle}>Message</label>
-            <textarea name="message" rows={5} placeholder="Any questions or special requests..." style={{ ...inputStyle, height: 'auto', padding: '14px 16px', resize: 'vertical' }} />
-          </div>
+            <div>
+              <label htmlFor="message" style={labelStyle}>Message</label>
+              <textarea id="message" name="message" rows={5} placeholder="Any questions or special requests..." style={{ ...inputStyle, height: 'auto', padding: '14px 16px', resize: 'vertical' }} />
+            </div>
 
-          <button type="submit" className="hero__cta" style={{ color: 'var(--dark)', borderColor: 'var(--dark)', borderRadius: '100px' }}>
-            Send Enquiry
-          </button>
-        </form>
+            {state.error && (
+              <p style={errorStyle}>{state.error}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isPending}
+              className="hero__cta"
+              style={{
+                color: 'var(--dark)',
+                borderColor: 'var(--dark)',
+                borderRadius: '100px',
+                opacity: isPending ? 0.6 : 1,
+                cursor: isPending ? 'not-allowed' : 'pointer',
+              }}
+            >
+              {isPending ? 'Sending...' : 'Send Enquiry'}
+            </button>
+          </form>
+        )}
       </div>
 
       <div style={mapColumn}>
@@ -136,7 +167,6 @@ const directionsLink: React.CSSProperties = {
   zIndex: 10,
 }
 
-
 const labelStyle: React.CSSProperties = {
   display: 'block',
   fontFamily: 'var(--font-sans), sans-serif',
@@ -161,4 +191,19 @@ const inputStyle: React.CSSProperties = {
   color: 'var(--dark)',
   outline: 'none',
   boxSizing: 'border-box',
+}
+
+const successStyle: React.CSSProperties = {
+  padding: '32px',
+  background: '#f0f7f0',
+  borderRadius: '12px',
+  color: 'var(--dark)',
+  fontFamily: 'var(--font-sans), sans-serif',
+}
+
+const errorStyle: React.CSSProperties = {
+  color: '#c44',
+  fontSize: '0.9rem',
+  fontFamily: 'var(--font-sans), sans-serif',
+  margin: 0,
 }
